@@ -1,0 +1,53 @@
+import sys
+import json
+
+
+def write_domain_class_variables(model, columns):
+    class_variables = {
+        "project_name": model + "-service",
+        "model_class_name": model.capitalize(),
+        "model_name": model,
+        "model_partition_key": model + "Id",
+        "columns": columns
+    }
+    with open("domain/" + model + "_domain.json", 'w') as f:
+        print("Writing domain/" + model + "_domain.json")
+        json.dump(class_variables, f)
+
+def getColumnsFromUser(model):
+    columns = ['createdBy', 'updatedAt', 'updatedBy', 'deletedAt', 'deletedBy']
+    while True:
+        column = input("Agrega una columna para "+ model +"(ingresa 'LISTO' para terminar): ")
+        if column == "LISTO":
+            break
+        columns.append(column)
+    return columns
+
+def getModelsFromUser():
+    models = []
+    while True:
+        model = input("Agrega un modelo (ingresa 'LISTO' para terminar): ")
+        if model == "LISTO":
+            break
+        models.append(model)
+    return models
+
+if __name__ == "__main__":
+    models_file_name = sys.argv[1]
+    # check if extension is .json
+    if models_file_name[-5:] != ".json":
+        print("Error: models file must be a .json file")
+        exit(1)
+
+    models = getModelsFromUser()
+    for model in models:
+        print("Modelo: " + model)
+        columns = getColumnsFromUser(model)
+        write_domain_class_variables(model, columns)
+
+    # write models to models.json
+    with open(models_file_name, 'w') as f:
+        json.dump(models, f)
+
+
+    
