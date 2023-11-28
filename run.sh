@@ -17,6 +17,11 @@ fi
 # Create Folder for Domain Classes
 mkdir domain
 
+# Check if $MODELS_FILE_NAME exisTS, when exists, delete it
+if [ -f "$MODELS_FILE_NAME" ]; then
+    rm $MODELS_FILE_NAME
+fi
+
 # Domain Classes Definition
 python get_domain_classes.py $MODELS_FILE_NAME
 

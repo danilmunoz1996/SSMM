@@ -18,5 +18,5 @@ $ sh run.sh [dir_to_save_models] [file_to_save_models] [want_to_deploy]
 
 ## Example
 ```bash
-$ sh run.sh MODELS_CLASSES models.json true
+$ sh run.sh MODELS_CLASSES models.json false
 ```
