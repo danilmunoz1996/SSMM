@@ -20,8 +20,7 @@ models=$(cat ${MODELS_FILE_NAME})
 
 for element in $(echo "${models}" | jq -r '.[]'); do
     echo "${element}"
-    mv $element-service-stack/$element-stack.ts infrastructure/lib/$element-stack.ts
-    rm -rf $element-service-stack
+    mv $element-stack.ts infrastructure/lib/$element-stack.ts
 done
 
 # generate project.ts file
